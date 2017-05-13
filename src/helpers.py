@@ -1,6 +1,6 @@
 # Helper functions - for sorting files found in directory
 
-import re
+import re, math
 
 # Helper functions to sort
 def atoi(text):
