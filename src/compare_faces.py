@@ -1,8 +1,11 @@
-import face_recognition
 import os
-from helpers import natural_keys
-import cv2
 import time
+
+import cv2
+import face_recognition
+
+
+from src.helpers import natural_keys
 
 
 # Compares already known faces with new face image
@@ -25,7 +28,7 @@ def compare_to_known_faces(new_img, known_faces):
     new_img_enc = enc[0]
     results = face_recognition.compare_faces(known_faces, new_img_enc)  # Compare to known faces
 
-    if not True in results:  # This means face does not match to other faces
+    if not (True in results):  # This means face does not match to other faces
         known_faces.append(new_img_enc)  # Add new face to known faces
         idx = len(known_faces)-1
     else:
@@ -62,6 +65,7 @@ def get_final_faces(input_path, target_path, sort_faces=False):
     for img in imgs:
         # Compare face to already known faces
         face = cv2.imread(input_path + "/" + img)
+
         known_faces, idx = compare_to_known_faces(face, known_faces)
 
         # Check if new face added to known faces
@@ -93,7 +97,7 @@ def get_final_faces(input_path, target_path, sort_faces=False):
 # Goes through all faces of all videos in input_path to remove repeating faces
 # For that compares each face to previously found faces of each people
 # Note - Input should contain subdirectories of categories, then subdirs of videos and then face images.
-def final_results(input_path="faces", target_path="res", sort_faces=False):
+def compare_faces(input_path="faces", target_path="res", sort_faces=False):
 
     categories = os.listdir(input_path)
 
@@ -116,4 +120,4 @@ def final_results(input_path="faces", target_path="res", sort_faces=False):
             print("Time spent: %f" % elapsed)
 
 
-final_results(sort_faces=True)
+#compare_faces(sort_faces=True)

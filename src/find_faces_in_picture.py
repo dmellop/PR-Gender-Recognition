@@ -37,11 +37,11 @@ def recognize_face_dlib(image):
 # Haarcascade method for face recognition
 def recognize_face_haarcascade(image):
     faces = regocnizeFaceByImg(image)
-    if faces == None:
+    if faces is None:
         return []
-    faceImages = cropFacesFromImage(image, faces)
+    face_images = cropFacesFromImage(image, faces)
 
-    return faceImages
+    return face_images
 
 
 def regocnizeFaceByImg(image):
@@ -123,7 +123,7 @@ def video_to_faces_dlib(video_path, target_path, skip=3):
                 cv2.imwrite("%s/frame%i_face_%i.jpg" % (target_path, count, i), face)  # save frame as JPEG file
                 i += 1
 
-            print("Frame nr done: %i" % count)
+            print("Frame done: %i" % count)
 
         count += 1
 
@@ -176,4 +176,5 @@ def videos2faces(input_folder="videos", target_folder="faces", skip=3, method="h
         print(e)
 
 
-videos2faces()
+#videos2faces(input_folder="videos", target_folder="faces", skip=3, method="haarcascade")
+

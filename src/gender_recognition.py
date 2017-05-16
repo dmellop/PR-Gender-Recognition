@@ -35,6 +35,11 @@ class GenderRegocnition:
                     # Go through all face images
                     for faceImageName in faceImages:
                         faceImagePath = "%s/%s" % (faceImagesDirPath, faceImageName)
+
+                        if os.path.isdir(faceImagePath):
+                            # Skip directories
+                            continue
+
                         faceImg = crop_face(Image.open(faceImagePath), offset_pct=(0.1,0.1))
                         flattenFaceImg = np.array(faceImg).flatten()
 
@@ -61,8 +66,8 @@ class GenderRegocnition:
             print(e)
 
 
-    def loadTrainingImages(self, prefix, imgs, targets):
-        imgDirPath = '../train_faces/' + prefix
+    def loadTrainingImages(self, prefix, imgs, targets, imgDir="../train_faces"):
+        imgDirPath = imgDir + "/" + prefix
 
         try:
             imgPaths = os.listdir(imgDirPath)
@@ -91,17 +96,17 @@ class GenderRegocnition:
 
         return ica, classifier
 
-    def evaluateGenders(self):
+    def evaluateGenders(self, input_folder="../result_faces", train_faces_path="../train_faces"):
         if (self.predictionMethod == "ica"):
             trainingImgs = []
             targets = []
 
-            self.loadTrainingImages('m', trainingImgs, targets)
-            self.loadTrainingImages('f', trainingImgs, targets)
+            self.loadTrainingImages('m', trainingImgs, targets, train_faces_path)
+            self.loadTrainingImages('f', trainingImgs, targets, train_faces_path)
 
             ica, classifier = self.getIcaAndClassifier(trainingImgs, targets, 25)
 
-            self.evaluateAndCountGenders(ica, classifier)
+            self.evaluateAndCountGenders(ica, classifier, input_folder)
         elif (self.predictionMethod == "angus"):
             self.evaluateAndCountGenders()
 
