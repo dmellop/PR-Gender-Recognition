@@ -1,6 +1,6 @@
 # PR-Gender-Recognition
 
-<b>Project:</b> Gender Recognition and People Counting from Videos
+<b>Project:</b> Gender Recognition and People Counting from Videos <br>
 <b>Team:</b> Martin Appo, Markus Kängsepp
 
 Video playlist containing all videos used: https://www.youtube.com/playlist?list=PLxbghykXtQogvtFX4N2jfXdR1UFCt6xnV
